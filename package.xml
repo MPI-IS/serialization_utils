@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>serialization_utils</name>
+  <version>0.1.0</version>
+  <description>Utilities for data serialization.</description>
+
+  <maintainer email="felix.widmaier@tue.mpg.de">Felix Widmaier</maintainer>
+  <license>mixed</license>
+  <url type="repository">https://github.com/MPI-IS/serialization_utils</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>mpi_cmake_modules</build_depend>
+
+  <depend>libcereal-dev</depend>
+
+  <test_depend>rosunit</test_depend>
+  <test_depend>libopencv-dev</test_depend>
+  <test_depend>libcereal-dev</test_depend>
+
+  <export>
+  </export>
+</package>
