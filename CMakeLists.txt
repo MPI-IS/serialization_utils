@@ -8,7 +8,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED on)
 # stop build on first error
 string(APPEND CMAKE_CXX_FLAGS " -Wfatal-errors")
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+    mpi_cmake_modules
+)
+
+search_for_cereal_required()
 
 catkin_package(
     INCLUDE_DIRS include
@@ -17,6 +21,7 @@ catkin_package(
 include_directories(
     include
     ${catkin_INCLUDE_DIRS}
+    ${cereal_INCLUDE_DIRS}
 )
 
 #############
@@ -37,5 +42,5 @@ if (CATKIN_ENABLE_TESTING)
     find_package(OpenCV REQUIRED)
     catkin_add_gtest(test_serialize_cvmat test/test_serialize_cvmat.cpp)
     target_link_libraries(test_serialize_cvmat
-        ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+        ${catkin_LIBRARIES} ${cereal_LIBRARIES} ${OpenCV_LIBRARIES})
 endif()

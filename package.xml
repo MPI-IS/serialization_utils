@@ -10,6 +10,10 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
+  <build_depend>mpi_cmake_modules</build_depend>
+
+  <depend>libcereal-dev</depend>
+
   <test_depend>rosunit</test_depend>
   <test_depend>libopencv-dev</test_depend>
   <test_depend>libcereal-dev</test_depend>
