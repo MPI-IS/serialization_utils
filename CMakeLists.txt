@@ -3,7 +3,7 @@
 #
 cmake_minimum_required(VERSION 3.10.2)
 
-project(serialization_utils)
+project(serialization_utils VERSION 2.0.0)
 
 # Using C++17
 if(NOT CMAKE_C_STANDARD)
