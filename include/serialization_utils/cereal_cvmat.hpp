@@ -60,7 +60,7 @@ void save(Archive& archive, const cv::Mat& mat)
             archive(row_data);
         }
     }
-};
+}
 
 template <class Archive>
 void load(Archive& archive, cv::Mat& mat)
@@ -87,6 +87,6 @@ void load(Archive& archive, cv::Mat& mat)
             archive(row_data);
         }
     }
-};
+}
 
 }  // namespace cereal

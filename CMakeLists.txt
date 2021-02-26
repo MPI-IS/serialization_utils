@@ -20,9 +20,6 @@ string(APPEND CMAKE_CXX_FLAGS " -Wfatal-errors")
 #
 # Dependencies
 #
-# depend on ament macros
-find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_python REQUIRED)
 
 find_package(mpi_cmake_modules REQUIRED)
 find_package(cereal REQUIRED)
@@ -59,23 +56,27 @@ endif()
 target_link_libraries(${PROJECT_NAME} INTERFACE cereal::cereal)
 
 # Export the target.
-ament_export_interfaces(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 list(APPEND all_targets ${PROJECT_NAME})
-list(APPEND all_target_exports export_${PROJECT_NAME})
 
 #
 # Tests.
 #
+include(CTest)
 if(BUILD_TESTING)
-  # tests are run only of OpenCV is found, as the tests include opencv related
-  # headers
   if(OpenCV_FOUND)
-    # find gtest and load the ament macro to use it.
-    find_package(ament_cmake_gtest)
-    # Add the test
-    ament_add_gtest(test_serialize_cvmat test/test_serialize_cvmat.cpp)
-    # Link the dependecies to it.
-    target_link_libraries(test_serialize_cvmat ${PROJECT_NAME})
+
+    # C++ unit-tests framework used.
+    find_package(GTest CONFIG REQUIRED)
+    include(GoogleTest)
+    # Config folder
+    get_filename_component(CONFIG_PATH config ABSOLUTE)
+    # create the executable
+    add_executable(test_serialize_cvmat test/test_serialize_cvmat.cpp)
+    # link to the created librairies and its dependencies
+    target_link_libraries(test_serialize_cvmat ${PROJECT_NAME} GTest::gtest)
+    # declare the test as gtest
+    gtest_add_tests(TARGET test_serialize_cvmat)
+
   endif()
 endif()
 
@@ -88,18 +89,19 @@ endif()
 #
 # Install the package
 #
+
+# install the include directory
 install(DIRECTORY include/ DESTINATION include)
 
+# command to install the library and binaries
 install(
   TARGETS ${all_targets}
-  EXPORT ${all_target_exports}
+  EXPORT ${PROJECT_NAME}Targets
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
   INCLUDES
   DESTINATION include)
 
-#
-# Export the package as ament
-#
-ament_package()
+# Export this package as a cmake package.
+generate_cmake_package()

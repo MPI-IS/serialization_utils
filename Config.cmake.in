@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+
+include(CMakeFindDependencyMacro)
+
+# we do not add the other dependencies because these are header files lib
+find_dependency(mpi_cmake_modules REQUIRED)
+find_dependency(cereal REQUIRED)
+
+# optional dep
+find_dependency(OpenCV QUIET)
+
+check_required_components(@PROJECT_NAME@)
