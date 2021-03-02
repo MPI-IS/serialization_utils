@@ -68,8 +68,6 @@ if(BUILD_TESTING)
     # C++ unit-tests framework used.
     find_package(GTest CONFIG REQUIRED)
     include(GoogleTest)
-    # Config folder
-    get_filename_component(CONFIG_PATH config ABSOLUTE)
     # create the executable
     add_executable(test_serialize_cvmat test/test_serialize_cvmat.cpp)
     # link to the created librairies and its dependencies
