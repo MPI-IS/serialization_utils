@@ -23,6 +23,8 @@ string(APPEND CMAKE_CXX_FLAGS " -Wfatal-errors")
 
 find_package(mpi_cmake_modules REQUIRED)
 find_package(cereal REQUIRED)
+find_package(Boost REQUIRED COMPONENTS iostreams)
+
 
 # OpenCV is an optional dependencies. This package is a header library, so will
 # compile fine without OpenCV installed if no package includes its OpenCV
@@ -57,6 +59,17 @@ target_link_libraries(${PROJECT_NAME} INTERFACE cereal::cereal)
 
 # Export the target.
 list(APPEND all_targets ${PROJECT_NAME})
+
+
+add_library(gzip_iostream src/gzip_iostream.cpp)
+target_include_directories(gzip_iostream PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
+target_link_libraries(gzip_iostream Boost::iostreams)
+# position independent code is needed for usage in pybind11 bindings
+set_property(TARGET gzip_iostream PROPERTY POSITION_INDEPENDENT_CODE ON)
+list(APPEND all_targets gzip_iostream)
 
 #
 # Tests.
