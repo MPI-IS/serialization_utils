@@ -13,7 +13,6 @@
 
 namespace serialization_utils
 {
-
 /**
  * @brief Wrap an input stream with gzip decompression.
  *
