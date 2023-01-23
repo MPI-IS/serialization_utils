@@ -3,7 +3,6 @@
  * @brief Serialization functions for serializing `cv::Mat` with cereal.
  * @author Patrik Huber
  * @license Apache-2.0
- * @todo Move this to some "serialization tools" package
  *
  * Taken from
  * https://www.patrikhuber.ch/blog/2015/05/serialising-opencv-matrices-using-boost-and-cereal/
