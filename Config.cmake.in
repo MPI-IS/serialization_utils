@@ -14,12 +14,12 @@ if(${CMAKE_VERSION} VERSION_LESS "3.15.0")
   find_package(OpenCV QUIET)
 else()
   # we do not add the other dependencies because these are header files lib
-  find_dependency(mpi_cmake_modules REQUIRED)
-  find_dependency(cereal REQUIRED)
-  find_dependency(Boost REQUIRED COMPONENTS iostreams)
+  find_dependency(mpi_cmake_modules)
+  find_dependency(cereal)
+  find_dependency(Boost COMPONENTS iostreams)
 
   # optional dep
-  find_dependency(OpenCV QUIET)
+  find_package(OpenCV QUIET)
 endif()
 
 check_required_components(@PROJECT_NAME@)
